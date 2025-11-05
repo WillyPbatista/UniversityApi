@@ -11,6 +11,8 @@ namespace UniversityApi.Domain
         public string? Title { get; set; }
         public string? Credits { get; set; }
         [ForeignKey("TeacherId")]
-        public int TeacherId { get; set; }        
+        public int TeacherId { get; set; }
+        public Teacher? Teacher { get; set; }
+        public ICollection<Enrollment>? Enrollments { get; set; }
     }
 }

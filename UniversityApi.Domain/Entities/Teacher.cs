@@ -11,5 +11,6 @@ namespace UniversityApi.Domain
         [Required]
         public string? Email { get; set; }
         public DateTime HireDate { get; set; }
+        public ICollection<Course>?  Courses { get; set; }
     }
 }

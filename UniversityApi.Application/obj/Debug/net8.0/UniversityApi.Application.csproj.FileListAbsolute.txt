@@ -13,3 +13,4 @@ C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Application\o
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Application\obj\Debug\net8.0\refint\UniversityApi.Application.dll
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Application\obj\Debug\net8.0\UniversityApi.Application.pdb
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Application\obj\Debug\net8.0\ref\UniversityApi.Application.dll
+C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Application\obj\Debug\net8.0\UniversityApi.Application.sourcelink.json

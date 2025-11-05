@@ -9,3 +9,4 @@ C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Domain\obj\De
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Domain\obj\Debug\net8.0\refint\UniversityApi.Domain.dll
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Domain\obj\Debug\net8.0\UniversityApi.Domain.pdb
 C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Domain\obj\Debug\net8.0\ref\UniversityApi.Domain.dll
+C:\Users\William Perez\Documents\Repos\UniversityApi\UniversityApi.Domain\obj\Debug\net8.0\UniversityApi.Domain.sourcelink.json
