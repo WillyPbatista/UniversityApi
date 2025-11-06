@@ -12,6 +12,8 @@ builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("UniversityConnection");
 builder.Services.AddDbContext<UniversityApiDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddInfrastructure();
+
 
 builder.Services.AddCors(options =>
 {
