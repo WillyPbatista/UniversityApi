@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using UniversityApi.Api;
 using UniversityApi.Application;
 using UniversityApi.Infrastructure;
 
@@ -35,6 +36,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapStudentEndpoints();
+app.MapCourseEnpoints();
+app.MapTeacherEndpoints();
 
 app.UseCors("AllowAll");
 
