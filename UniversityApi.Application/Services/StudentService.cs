@@ -11,7 +11,7 @@ public class StudentService : IStudentService
         _Repository = repository;
         _Mapper = mapper;
     }
-    public async Task<StudentDTO> CreateStudent(StudentDTO student)
+    public async Task<StudentCreateDTO> CreateStudent(StudentCreateDTO student)
     {
         var newStudent = _Mapper.Map<Student>(student);
         await _Repository.AddAsync(newStudent);
