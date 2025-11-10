@@ -9,6 +9,7 @@ namespace UniversityApi.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped(typeof(ICourseRepository), typeof(CourseRepository));
 
             return services;
         }

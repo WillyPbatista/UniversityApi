@@ -38,6 +38,7 @@ if (app.Environment.IsDevelopment())
 app.MapStudentEndpoints();
 app.MapCourseEnpoints();
 app.MapTeacherEndpoints();
+app.MapEnrollmentEnpoints();
 
 app.UseCors("AllowAll");
 
