@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using UniversityApi.Api;
+using UniversityApi.Api.Middlewares;
 using UniversityApi.Application;
 using UniversityApi.Infrastructure;
 
@@ -35,10 +36,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ErrorHandlingMiddleware>();
+app.UseCors("AllowAll"); 
 app.MapStudentEndpoints();
 app.MapCourseEnpoints();
 app.MapTeacherEndpoints();
 app.MapEnrollmentEnpoints();
+
 
 app.UseCors("AllowAll");
 
