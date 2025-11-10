@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using UniversityApi.Application;
 
-namespace UniversityApi.Application
+namespace UniversityApi.Api
 {
     public static class StudentEndpoints
     {
