@@ -21,7 +21,6 @@ namespace UniversityApi.Api
             {
                 if (enrollmentCreateDTO is null) return Results.BadRequest();
                 var enrollment = await service.CreateEnrollment(enrollmentCreateDTO);
-                Console.WriteLine("creaated enrollment in minimal"  + enrollmentCreateDTO);
                 return Results.Created();
             })
             .WithName("CreateEnrollment");
