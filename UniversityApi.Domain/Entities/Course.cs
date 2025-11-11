@@ -10,7 +10,6 @@ namespace UniversityApi.Domain
         [Required]
         public string? Title { get; set; }
         public string? Credits { get; set; }
-        [ForeignKey("TeacherId")]
         public int TeacherId { get; set; }
         public Teacher? Teacher { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }

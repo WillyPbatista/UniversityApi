@@ -11,6 +11,17 @@ public class EnrollmentService : IEnrollmentService
         _Repository = repository;
     }
 
+    public async Task<EnrollmentCreateDTO> CreateEnrollment(EnrollmentCreateDTO enrollmentCreateDTO)
+    {
+        if (enrollmentCreateDTO == null) return null;
+
+        var newEnrollment = _mapper.Map<Enrollment>(enrollmentCreateDTO);
+        await _Repository.AddAsync(newEnrollment);
+        await _Repository.SaveChangesAsync();
+         Console.WriteLine("creaated enrollment in service"  + newEnrollment);
+        return enrollmentCreateDTO;
+    }
+
     public async Task<bool> DeleteEnrollment(int Id)
     {
         var Enrollment = await _Repository.GetByIdAsync(Id);
