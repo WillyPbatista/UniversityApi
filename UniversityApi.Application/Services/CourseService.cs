@@ -14,6 +14,23 @@ public class CourseService : ICourseService
     }
     public async Task<CourseCreateDTO> CreateCourse(CourseCreateDTO courseCreateDTO)
     {
+        if (courseCreateDTO == null)
+            throw new ArgumentNullException(nameof(courseCreateDTO), "The request body cannot be empty");
+
+        if (string.IsNullOrWhiteSpace(courseCreateDTO.Title))
+            throw new ArgumentException("Course title is required.", nameof(courseCreateDTO.Title));
+
+        if (string.IsNullOrWhiteSpace(courseCreateDTO.Credits) || courseCreateDTO.Credits == null)
+            throw new ArgumentException("Course credits is required", nameof(courseCreateDTO.Credits));
+
+        if (courseCreateDTO.TeacherId == null)
+            throw new ArgumentNullException(nameof(CourseCreateDTO.TeacherId), "Teacher ID is required.");
+
+        var allcourses = await _Repository.GetAllAsync();
+        if (allcourses.Any(c => c.Title.Equals(courseCreateDTO.Title, StringComparison.OrdinalIgnoreCase)))
+            throw new ArgumentException("A course with the same title already exists.", nameof(courseCreateDTO.Title));
+
+    
         var newCourse = _mapper.Map<Course>(courseCreateDTO);
 
         await _Repository.AddAsync(newCourse);
@@ -25,6 +42,9 @@ public class CourseService : ICourseService
     public async Task<bool> DeleteCourse(int Id)
     {
         var deleteCourse = await _Repository.GetByIdAsync(Id);
+
+        if(deleteCourse == null)
+            throw new ArgumentNullException("Course not found.", nameof(deleteCourse));
 
         if (deleteCourse == null)
         {
@@ -38,6 +58,10 @@ public class CourseService : ICourseService
     public async Task<CourseDTO> GetCourse(int Id)
     {
         var Course = await _courseRepository.GetById(Id);
+
+        if (Course == null)
+            throw new ArgumentNullException("Course not found.", nameof(Course));
+
         return Course != null ? _mapper.Map<CourseDTO>(Course) : null;
     }
 
@@ -50,14 +74,12 @@ public class CourseService : ICourseService
     public async Task<CourseDTO> UpdateCourse(CourseDTO courseDTO)
     {
         var UpdateCourse = await _Repository.GetByIdAsync(courseDTO.Id);
-        if (UpdateCourse != null)
+        if (UpdateCourse == null)
+            throw new ArgumentNullException("Course not found.", nameof(UpdateCourse));
 
-        {
-            _Repository.Update(UpdateCourse);
-            await _Repository.SaveChangesAsync();
+        _Repository.Update(UpdateCourse);
+        await _Repository.SaveChangesAsync();
+        return courseDTO;
 
-            return _mapper.Map<CourseDTO>(UpdateCourse);
-        }
-        return null;
     }
 }
