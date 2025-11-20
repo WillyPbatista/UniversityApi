@@ -8,14 +8,16 @@ namespace UniversityApi.Api
         public static void MapCourseEnpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/api/courses")
-            .WithTags("Courses");
+            .WithTags("Courses")
+            .RequireAuthorization();
 
             group.MapGet("/", async ([FromServices] ICourseService service) =>
             {
                 var courses = await service.GetCourses();
                 return Results.Ok(courses);
             })
-            .WithName("GetAllCourses");
+            .WithName("GetAllCourses")
+            .RequireAuthorization();
 
             group.MapGet("/{id:int}", async (int id, [FromServices] ICourseService service) =>
             {
@@ -24,7 +26,8 @@ namespace UniversityApi.Api
                 if (course is null) return Results.NotFound();
                 return Results.Ok(course);
             })
-            .WithName("GetCourse");
+            .WithName("GetCourse")
+            .RequireAuthorization();
 
             group.MapPost("/", async ([FromBody] CourseCreateDTO courseCreateDTO, ICourseService service) =>
             {
@@ -32,7 +35,8 @@ namespace UniversityApi.Api
                 await service.CreateCourse(courseCreateDTO);
                 return Results.Ok(courseCreateDTO);
             })
-            .WithName("CerateCourse");
+            .WithName("CerateCourse")
+            .RequireAuthorization();
         }
     }
 }

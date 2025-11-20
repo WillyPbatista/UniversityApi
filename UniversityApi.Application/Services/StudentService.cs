@@ -68,7 +68,7 @@ public class StudentService : IStudentService
         return _Mapper.Map<IEnumerable<StudentDTO>>(list);
     }
 
-    public async Task<StudentDTO> UpdateStudent(StudentDTO student, int id)
+    public async Task<StudentCreateDTO> UpdateStudent(StudentCreateDTO student, int id)
     {
 
         if (student == null)
@@ -87,8 +87,12 @@ public class StudentService : IStudentService
         if (!new EmailAddressAttribute().IsValid(student.Email))
             throw new ArgumentException("invalid email format", nameof(student.Email));
 
-        var UpdateStudent = _Mapper.Map<Student>(student);    
-        _Repository.Update(UpdateStudent);
+
+        existingStudent.Name = student.Name;
+        existingStudent.Email = student.Email;
+        existingStudent.EnrollmentDate = student.EnrollmentDate;
+
+        _Repository.Update(existingStudent);
         await _Repository.SaveChangesAsync();
         return student;
     }
