@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using UniversityApi.Api;
 using UniversityApi.Api.Middlewares;
 using UniversityApi.Application;
+using UniversityApi.Identity.Extensions;
 using UniversityApi.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,8 @@ var connectionString = builder.Configuration.GetConnectionString("UniversityConn
 builder.Services.AddDbContext<UniversityApiDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddInfrastructure();
 builder.Services.AddApplication();
+builder.Services.AddIdentityModule(builder.Configuration);
+
 
 
 builder.Services.AddCors(options =>
@@ -34,6 +37,10 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    
+app.UseAuthentication();
+app.UseAuthorization();
 }
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
@@ -42,6 +49,7 @@ app.MapStudentEndpoints();
 app.MapCourseEnpoints();
 app.MapTeacherEndpoints();
 app.MapEnrollmentEnpoints();
+app.MapAuthEnpoints();
 
 
 app.UseCors("AllowAll");

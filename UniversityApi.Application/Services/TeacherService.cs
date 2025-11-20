@@ -3,11 +3,11 @@ using AutoMapper;
 using UniversityApi.Domain;
 public class TeacherService : ITeacherService
 {
-    private readonly IGenericRepository<Teacher> _Repository;
+    private readonly ITeacherRepository _Repository;
     private readonly IMapper _Mapper;
 
 
-    public TeacherService(IGenericRepository<Teacher> repository, IMapper mapper)
+    public TeacherService(ITeacherRepository repository, IMapper mapper)
     {
         _Repository = repository;
         _Mapper = mapper;

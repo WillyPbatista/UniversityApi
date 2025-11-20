@@ -10,6 +10,8 @@ namespace UniversityApi.Infrastructure
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddScoped(typeof(ICourseRepository), typeof(CourseRepository));
+            services.AddScoped(typeof(IStudentRepository), typeof(StudentRepository));
+            services.AddScoped(typeof(ITeacherRepository), typeof(TeacherRepository));
 
             return services;
         }
