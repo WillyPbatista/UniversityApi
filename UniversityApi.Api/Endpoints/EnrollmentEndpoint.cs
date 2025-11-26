@@ -8,14 +8,16 @@ namespace UniversityApi.Api
         public static void MapEnrollmentEnpoints(this IEndpointRouteBuilder app)
         {
             var group = app.MapGroup("/api/Enrollements")
-            .WithTags("Enrollments");
+            .WithTags("Enrollments")
+            .RequireAuthorization();
 
             group.MapGet("/", async ([FromServices] IEnrollmentService service) =>
             {
                 var list = await service.GetEnrollments();
                 return Results.Ok(list);
             })
-            .WithName("GetEnrollments");
+            .WithName("GetEnrollments")
+            .RequireAuthorization();
             
             group.MapPost("/", async ([FromBody] EnrollmentCreateDTO enrollmentCreateDTO, IEnrollmentService service ) =>
             {
@@ -23,7 +25,8 @@ namespace UniversityApi.Api
                 var enrollment = await service.CreateEnrollment(enrollmentCreateDTO);
                 return Results.Created();
             })
-            .WithName("CreateEnrollment");
+            .WithName("CreateEnrollment")
+            .RequireAuthorization();
         }
     }
 }

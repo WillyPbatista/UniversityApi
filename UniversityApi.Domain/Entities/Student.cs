@@ -13,5 +13,6 @@ namespace UniversityApi.Domain
         [Required]
         public DateTime EnrollmentDate { get; set; }
         public ICollection<Enrollment>? Enrollments { get; set; }
+        public string UserId { get; set; }
     }
 }

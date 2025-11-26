@@ -4,7 +4,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     protected readonly UniversityApiDbContext _context;
     public GenericRepository(UniversityApiDbContext context)
-    {   
+    {
         _context = context;
     }
     public async Task AddAsync(T entity) => await _context.AddAsync(entity);
@@ -16,7 +16,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
 
     public async Task<T?> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
-
 
     public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
 

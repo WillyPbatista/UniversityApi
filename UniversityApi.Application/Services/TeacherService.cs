@@ -3,11 +3,11 @@ using AutoMapper;
 using UniversityApi.Domain;
 public class TeacherService : ITeacherService
 {
-    private readonly IGenericRepository<Teacher> _Repository;
+    private readonly ITeacherRepository _Repository;
     private readonly IMapper _Mapper;
 
 
-    public TeacherService(IGenericRepository<Teacher> repository, IMapper mapper)
+    public TeacherService(ITeacherRepository repository, IMapper mapper)
     {
         _Repository = repository;
         _Mapper = mapper;
@@ -68,16 +68,31 @@ public class TeacherService : ITeacherService
         return _Mapper.Map<IEnumerable<TeacherDTO>>(list);
     }
 
-    public async Task<TeacherDTO> UpdateTeacher(TeacherDTO Teacher, int id)
+    public async Task<TeacherCreateDTO> UpdateTeacher(TeacherCreateDTO Teacher, int id)
     {
-        var UpdatedTeacher = await _Repository.GetByIdAsync(id);
 
-        if (UpdatedTeacher == null)
+        if (Teacher == null)
+            throw new ArgumentNullException(nameof(Teacher), "the request body cannot be null.");
+
+        var existingTeacher = await _Repository.GetByIdAsync(id);
+        if (existingTeacher == null)
             throw new KeyNotFoundException($"No Teacher found with ID {id}");
-        
-            _Repository.Update(UpdatedTeacher);
-            await _Repository.SaveChangesAsync();
-            return _Mapper.Map<TeacherDTO>(UpdatedTeacher);
-        
+
+        if (string.IsNullOrWhiteSpace(Teacher.Name))
+            throw new ArgumentException("Teacher name is required", nameof(Teacher));
+
+        if (string.IsNullOrWhiteSpace(Teacher.Email))
+            throw new ArgumentException("Teacher email is required", nameof(Teacher));
+
+        if (!new EmailAddressAttribute().IsValid(Teacher.Email))
+            throw new ArgumentException("invalid email format", nameof(Teacher.Email));
+
+
+        existingTeacher.Name = Teacher.Name;
+        existingTeacher.Email = Teacher.Email;
+
+        _Repository.Update(existingTeacher);
+        await _Repository.SaveChangesAsync();
+        return Teacher;
     }
 }
