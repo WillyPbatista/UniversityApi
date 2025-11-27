@@ -8,7 +8,7 @@ namespace UniversityApi.Infrastructure
         public UniversityApiDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<UniversityApiDbContext>();
-            optionsBuilder.UseSqlServer("Server=WILLY-PC\\SQLEXPRESS;Database=UniversityDb;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("UniversityConnection");
 
             return new UniversityApiDbContext(optionsBuilder.Options);
         }
