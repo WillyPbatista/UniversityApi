@@ -46,13 +46,11 @@ public class CourseService : ICourseService
         if(deleteCourse == null)
             throw new ArgumentNullException("Course not found.", nameof(deleteCourse));
 
-        if (deleteCourse == null)
-        {
+
             _Repository.Delete(deleteCourse);
             await _Repository.SaveChangesAsync();
             return true;
-        }
-        return false;
+
     }
 
     public async Task<CourseDTO> GetCourse(int Id)
